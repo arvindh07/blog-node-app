@@ -7,8 +7,10 @@ const { connectToDb, disconnectFromDb } = require("./connection");
 const app = express();
 const PORT = process.env.PORT || 7001;
 
+app.set("view-engine", "ejs");
+
 app.get("/", (req, res) => {
-    return res.send("<h1>Welcome to nodejs</h1>")
+    return res.render("Home.ejs")
 })
 
 connectToDb().then(() => {

@@ -1,3 +1,3 @@
-# node starter package🚀🔥
+# Blog app using nodejs🚀
 
-- This is a boilerplate code for nodejs with mongoose
+- create user model✅

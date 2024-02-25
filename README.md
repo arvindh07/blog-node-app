@@ -2,4 +2,5 @@
 
 - create user model✅
 - add user router and controller✅
-- setup viwes folder and home page✅
+- setup views folder and home page✅
+- add login form✅

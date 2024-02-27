@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
+const cookieParser = require("cookie-parser");
 
 const { connectToDb, disconnectFromDb } = require("./connection");
 const userRouter = require("./router/user");
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 7001;
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(checkForAuth());
 
 app.get("/", (req, res) => {

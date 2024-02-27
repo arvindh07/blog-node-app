@@ -1,6 +1,6 @@
 const checkForAuth = () => {
     return (req, res, next) => {
-        // console.log("auth running...", req.cookie);
+        console.log("auth running...",req.url, req.cookies);
         // req.user = null;
         // if(!req.cookies["auth_token"]){
         //     return next();

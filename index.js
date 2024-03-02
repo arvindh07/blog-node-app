@@ -10,17 +10,37 @@ const { checkForAuth } = require("./middlewares/authentication");
 const app = express();
 const PORT = process.env.PORT || 7001;
 
+
 app.set("view-engine", "ejs");
-app.use(express.urlencoded({extended: false}));
+app.set(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(checkForAuth());
+
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("calling destination ", req.file)
+        cb(null, 'public/profilePics/')
+    },
+    filename: function (req, file, cb) {
+        console.log("filename ", file);
+        const fileName = Date.now() + '-' + file.originalname
+        cb(null, fileName)
+    }
+})
+const upload = multer({ storage })
 
 app.get("/", (req, res) => {
     return res.render("Home.ejs")
 })
 
 app.use("/user", userRouter);
+// app.post("/upload", , function(req, res, next){
+//     console.log("file upload -> ", req.file);
+//     res.redirect("/")
+// })
 
 connectToDb().then(() => {
     app.listen(PORT, () => {

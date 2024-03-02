@@ -8,6 +8,11 @@ const createToken = (id, email, role) => {
     }, process.env.JWT_SECRET)
 }
 
+const verifyToken = () => {
+    return jwt.verify("", process.env.JWT_SECRET);
+}
+
 module.exports = {
-    createToken
+    createToken,
+    verifyToken
 }

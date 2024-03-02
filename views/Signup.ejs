@@ -24,8 +24,15 @@
         <label for="password" class="form-label">Password</label>
         <input type="password" name="password" class="form-control" id="password">
       </div>
+      <div class="mb-3">
+        <label for="profilePic" class="form-label">Upload your profile pic</label>
+        <input class="form-control" name="profilePic" type="file" id="profilePic">
+        <button type="submit" class="btn btn-primary mt-2">Upload</button>
+      </div>
       <button type="submit" class="btn btn-primary">Create an account</button>
     </form>
+    <!-- <form action="/upload" method="post" enctype="multipart/form-data"> -->
+    <!-- </form> -->
   </div>
   <%- include('./partials/script.ejs'); %>
 </body>

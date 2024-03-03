@@ -59,9 +59,15 @@ const handleSignup = async (req, res) => {
     return res.redirect("/");
 }
 
+const handleLogout = async (req, res) => {
+    res.clearCookie("auth_token");
+    return res.redirect("/user/login");
+}
+
 module.exports = {
     handleLogin,
     handleSignup,
+    handleLogout,
     renderLoginPage,
     renderSignupPage
 }

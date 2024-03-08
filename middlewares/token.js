@@ -10,13 +10,14 @@ const createToken = (id, email, role) => {
 
 const verifyTokenAndCheckAuth = (req, res, next) => {
     try {
-        const user = jwt.verify(req.cookie["auth_token"], process.env.JWT_SECRET);
+        const user = jwt.verify(req.cookies["auth_token"], process.env.JWT_SECRET);
         if(user){
             req.user = user;
             return next();
         }
         return res.redirect("/user/login");
     } catch (error) {
+        console.log("err", error);
         return res.redirect("/user/login");
     }
 }

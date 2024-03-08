@@ -9,10 +9,11 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    coverPic: {
-        type: String,
-        required: true
-    },
+    // coverPic: {
+    //     type: String,
+    //     required: true,
+    //     default: "/"
+    // },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true

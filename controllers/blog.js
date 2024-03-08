@@ -6,16 +6,14 @@ const renderAddBlog = (req, res, next) => {
 
 const handleCreateBlog = async (req, res, next) => {
     const {title, content} = req.body;
-    const authorId = req.user._id;
+    const authorId = req.user.id;
     await Blog.create({
         title,
         content,
         createdBy: authorId
     })
-    
-    return res.status(200).json({
-        msg: "Blog created successfully"
-    })
+
+    return res.redirect("/");
 }
 
 module.exports = {

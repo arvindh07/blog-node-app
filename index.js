@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const { connectToDb, disconnectFromDb } = require("./connection");
 const userRouter = require("./router/user");
+const blogRouter = require("./router/blog");
 const { checkForAuth } = require("./middlewares/authentication");
 
 const app = express();
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/user", userRouter);
+app.use("/blog", blogRouter);
 
 connectToDb().then(() => {
     app.listen(PORT, () => {

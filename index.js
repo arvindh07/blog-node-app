@@ -17,7 +17,7 @@ app.set(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(checkForAuth());
+// app.use(checkForAuth());
 
 const multer = require("multer");
 const { verifyTokenAndCheckAuth } = require("./middlewares/token");
@@ -35,7 +35,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 app.get("/", (req, res) => {
-    console.log("home req ", req.user);
     return res.render("Home.ejs")
 })
 

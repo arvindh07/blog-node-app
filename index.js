@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use(checkForAuth());
 
 const multer = require("multer");
+const { verifyTokenAndCheckAuth } = require("./middlewares/token");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("calling destination ", req.file)
@@ -33,14 +34,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 app.get("/", (req, res) => {
+    console.log("home req ", req.user);
     return res.render("Home.ejs")
 })
 
 app.use("/user", userRouter);
-// app.post("/upload", , function(req, res, next){
-//     console.log("file upload -> ", req.file);
-//     res.redirect("/")
-// })
 
 connectToDb().then(() => {
     app.listen(PORT, () => {

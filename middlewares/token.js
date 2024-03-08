@@ -8,11 +8,20 @@ const createToken = (id, email, role) => {
     }, process.env.JWT_SECRET)
 }
 
-const verifyToken = () => {
-    return jwt.verify("", process.env.JWT_SECRET);
+const verifyTokenAndCheckAuth = (req, res, next) => {
+    try {
+        const user = jwt.verify(req.cookie["auth_token"], process.env.JWT_SECRET);
+        if(user){
+            req.user = user;
+            return next();
+        }
+        return res.redirect("/user/login");
+    } catch (error) {
+        return res.redirect("/user/login");
+    }
 }
 
 module.exports = {
     createToken,
-    verifyToken
+    verifyTokenAndCheckAuth
 }

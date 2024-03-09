@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const { connectToDb, disconnectFromDb } = require("./connection");
 const userRouter = require("./router/user");
 const blogRouter = require("./router/blog");
-const { checkForAuth } = require("./middlewares/authentication");
+const { checkForAuthToken } = require("./middlewares/authentication");
 
 const app = express();
 const PORT = process.env.PORT || 7001;
@@ -16,7 +16,7 @@ app.set(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(checkForAuth());
+app.use(checkForAuthToken());
 
 const multer = require("multer");
 const blog = require("./models/blog");
@@ -35,7 +35,7 @@ const upload = multer({ storage })
 
 app.get("/", async (req, res) => {
     const allBlogs = await blog.find();
-    return res.render("Home.ejs", {allBlogs});
+    return res.render("Home.ejs", {allBlogs, user: req.user});
 })
 
 app.use("/user", userRouter);

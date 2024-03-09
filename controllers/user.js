@@ -29,7 +29,7 @@ const handleLogin = async (req, res) => {
             error: "Password doesnt match"
         })
     }
-    const token = createToken(user._id.toString(), user.email, user.password);
+    const token = createToken(user._id.toString(), user.name, user.email, user.password);
     res.cookie("auth_token", token);
     return res.redirect("/");
 }
@@ -54,7 +54,7 @@ const handleSignup = async (req, res) => {
         email,
         password: hashedPassword
     })
-    const token = createToken(newUser._id.toString(), newUser.email, newUser.password);
+    const token = createToken(newUser._id.toString(), newUser.name, newUser.email, newUser.password);
     res.cookie("auth_token", token);
     return res.redirect("/");
 }

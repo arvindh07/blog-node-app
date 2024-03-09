@@ -34,7 +34,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 app.get("/", async (req, res) => {
-    const allBlogs = await blog.find();
+    const allBlogs = await blog.find().sort({ createdAt: -1 });
     return res.render("Home.ejs", {allBlogs, user: req.user});
 })
 

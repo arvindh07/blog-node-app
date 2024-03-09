@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const { connectToDb, disconnectFromDb } = require("./connection");
 const userRouter = require("./router/user");
 const blogRouter = require("./router/blog");
+const { checkForAuth } = require("./middlewares/authentication");
 
 const app = express();
 const PORT = process.env.PORT || 7001;
@@ -15,7 +16,7 @@ app.set(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-// app.use(checkForAuth());
+app.use(checkForAuth());
 
 const multer = require("multer");
 const blog = require("./models/blog");

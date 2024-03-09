@@ -11,11 +11,25 @@
 <body>
     <%- include('./partials/nav.ejs'); %>
         <div class="container mt-5">
-            <h3><%= currentBlog.title %></h3>
+            <h3>
+                <%= currentBlog.title %>
+            </h3>
             <!-- img should come here -->
-            <p class="mt-5"><%= currentBlog.content %></p>
+            <p class="mt-5">
+                <%= currentBlog.content %>
+            </p>
+            <h2 class="mt-4 mb-3">Add comments</h2>
+            <form method="post" action="/blog/comment/<%= currentBlog._id %>">
+                <div class="mb-3 row me-4">
+                    <!-- <label for="comment" class="form-label">Co</label> -->
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="comment" id="comment" placeholder="Add comment">
+                    </div>
+                    <button type="submit" class="btn btn-primary col-1">Add</button>
+                </div>
+            </form>
         </div>
-    <%- include('./partials/script.ejs'); %>
+        <%- include('./partials/script.ejs'); %>
 </body>
 
 </html>

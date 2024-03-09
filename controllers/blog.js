@@ -16,7 +16,14 @@ const handleCreateBlog = async (req, res, next) => {
     return res.redirect("/");
 }
 
+const renderSingleBlog = async (req, res, next) => {
+    const {id} = req.params;
+    const currentBlog = await Blog.findById(id);
+    return res.render("Blog.ejs", {currentBlog})
+}
+
 module.exports = {
     handleCreateBlog,
+    renderSingleBlog,
     renderAddBlog
 }

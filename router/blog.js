@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.route("/add")
     .get(renderAddBlog)
-    .post( handleCreateBlog);
+    .post(handleCreateBlog);
 
 router.get("/:id", renderSingleBlog);
 router.post("/comment/:blogId", handleAddComments);

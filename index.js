@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 const { connectToDb, disconnectFromDb } = require("./connection");
 const userRouter = require("./router/user");
@@ -12,6 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 7001;
 
 app.set("view-engine", "ejs");
+app.set("views", path.resolve("./views"));
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

@@ -3,7 +3,7 @@ const Comment = require("../models/comment");
 const User = require("../models/user");
 
 const renderAddBlog = (req, res, next) => {
-    return res.render("AddBlog.ejs");
+    return res.render("AddBlog.ejs", {user: req.user});
 }
 
 const handleCreateBlog = async (req, res, next) => {
@@ -25,7 +25,7 @@ const renderSingleBlog = async (req, res, next) => {
         .find({ blogId: id, userId: req.user.id })
         .populate("userId")
         .sort({ createdAt: -1 });
-    return res.render("Blog.ejs", {currentBlog, comments})
+    return res.render("Blog.ejs", {currentBlog, comments, user: req.user})
 }
 
 const handleAddComments = async (req, res, next) => {

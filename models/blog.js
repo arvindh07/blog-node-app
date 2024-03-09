@@ -1,14 +1,5 @@
 const mongoose = require("mongoose");
 
-const commentSchema = new mongoose.Schema({
-    comment: {
-        type: String
-    },
-    commentedBy: {
-        type: mongoose.Schema.Types.ObjectId
-    }
-}, { timestamps: true })
-
 const blogSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -25,10 +16,7 @@ const blogSchema = new mongoose.Schema({
     // },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
-    comments: {
-        type: [commentSchema]
+        ref: "User"
     }
 }, { timestamps: true })
 

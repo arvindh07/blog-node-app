@@ -16,13 +16,14 @@ const userSchema = new mongoose.Schema({
     },
     profilePic: {
         type: String,
-        default: "/profilePic/default.jpg"
+        default: "/profilePics/default.jpg"
     },
     role: {
         type: String,
         enum: ["ADMIN", "USER"],
         default: "USER"
     }
+    // need to add user
 }, { timestamps: true })
 
 module.exports = mongoose.model("User", userSchema);

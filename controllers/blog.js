@@ -1,4 +1,5 @@
 const Blog = require("../models/blog");
+const Comment = require("../models/comment");
 const User = require("../models/user");
 
 const renderAddBlog = (req, res, next) => {
@@ -20,23 +21,26 @@ const handleCreateBlog = async (req, res, next) => {
 const renderSingleBlog = async (req, res, next) => {
     const {id} = req.params;
     const currentBlog = await Blog.findById(id);
-    return res.render("Blog.ejs", {currentBlog})
+    const comments = await Comment
+        .find({ blogId: id, userId: req.user.id })
+        .populate("userId")
+        .sort({ createdAt: -1 });
+    return res.render("Blog.ejs", {currentBlog, comments})
 }
 
 const handleAddComments = async (req, res, next) => {
-    console.log("req ", req.user);
     const {blogId} = req.params;
     const {comment} = req.body;
-    const blog = await Blog.findById(blogId);
-    const user = await User.findById(req.user.id);
+    // const blog = await Blog.findById(blogId);
+    // const user = await User.findById(req.user.id);
 
     const userComment = {
         comment,
-        commentedBy: req.user.id
+        blogId,
+        userId: req.user.id
     }
 
-    blog.comments.push(userComment);
-    await blog.save();
+    await Comment.create(userComment);
 
     return res.redirect("/blog/" + blogId);
 }

@@ -13,7 +13,7 @@
   <div class="container mt-3 d-flex flex-wrap">
       <% allBlogs.forEach(function(blog) { %>
       <div class="card me-5 mb-3" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="<%= blog.coverPic %>" class="card-img-top" alt="coverPic" style="height:200px; object-fit: cover;">
         <div class="card-body">
           <h5 class="card-title">
             <%= blog.title %>

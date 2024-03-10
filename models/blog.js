@@ -9,11 +9,11 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // coverPic: {
-    //     type: String,
-    //     required: true,
-    //     default: "/blogcover/default.jpg"
-    // },
+    coverPic: {
+        type: String,
+        required: true,
+        default: "/blogcover/default.jpg"
+    },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

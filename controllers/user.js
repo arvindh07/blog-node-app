@@ -11,20 +11,20 @@ const renderSignupPage = (req, res) => {
 }
 
 const handleLogin = async (req, res) => {
-    const { email, password} = req.body;
-    if(!email || !password){
+    const { email, password } = req.body;
+    if (!email || !password) {
         return res.status(400).json({
             error: "All fields required"
         })
     }
     const user = await User.findOne({ email });
-    if(!user){
+    if (!user) {
         return res.status(400).json({
             error: "Email doesnt exists"
         })
     }
     const matchPassword = await bcrypt.compare(password, user.password);
-    if(!matchPassword){
+    if (!matchPassword) {
         return res.status(400).json({
             error: "Password doesnt match"
         })
@@ -35,24 +35,25 @@ const handleLogin = async (req, res) => {
 }
 
 const handleSignup = async (req, res) => {
-    const {name, email, password} = req.body;
-    if(!name || !email || !password){
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
         return res.status(400).json({
             error: "All fields required"
         })
     }
     const user = await User.findOne({ email });
-    if(user){
+    if (user) {
         return res.status(400).json({
             error: "Email already exists"
         })
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     const newUser = await User.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        profilePic: `/profilePics/${req.file.filename}`
     })
     const token = createToken(newUser._id.toString(), newUser.name, newUser.email, newUser.password);
     res.cookie("auth_token", token);

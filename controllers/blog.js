@@ -12,7 +12,8 @@ const handleCreateBlog = async (req, res, next) => {
     await Blog.create({
         title,
         content,
-        createdBy: authorId
+        createdBy: authorId,
+        coverPic: `/blogcover/${req.file.filename}`,
     })
 
     return res.redirect("/");

@@ -8,6 +8,7 @@ const { connectToDb, disconnectFromDb } = require("./connection");
 const userRouter = require("./router/user");
 const blogRouter = require("./router/blog");
 const { checkAndVerifyToken } = require("./middlewares/authentication");
+const blog = require("./models/blog");
 
 const app = express();
 const PORT = process.env.PORT || 7001;
@@ -21,20 +22,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(checkAndVerifyToken());
 
-const multer = require("multer");
-const blog = require("./models/blog");
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        console.log("calling destination ", req.file)
-        cb(null, 'public/profilePics/')
-    },
-    filename: function (req, file, cb) {
-        console.log("filename ", file);
-        const fileName = Date.now() + '-' + file.originalname
-        cb(null, fileName)
-    }
-})
-const upload = multer({ storage });
 
 app.get("/", async (req, res) => {
     const allBlogs = await blog.find().sort({ createdAt: -1 });

@@ -15,10 +15,12 @@
     <h3>
       <%= currentBlog.title %>
     </h3>
-    <span style="color: gray; font-size: 1rem; text-align: center;">
+    <span style="display: block; color: gray; font-size: 1rem;" class="mb-3">
       by <%= author.name %> - <%= new Date(author.createdAt).toDateString() %>
     </span>
-    <!-- img should come here -->
+    <div class="coverImg mx-auto d-flex align-items-center justify-content-center">
+      <img style="text-align: center; margin: 1rem auto; width:auto; height: 300px; object-fit: cover; " src="<%= currentBlog.coverPic %>" alt="userPic">
+    </div>
     <p class="mt-4">
       <!-- <pre> -->
       <%= currentBlog.content %>

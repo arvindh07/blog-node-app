@@ -10,12 +10,16 @@
 
 <body>
   <%- include('./partials/nav'); %>
+
   <div class="container mt-5">
     <h3>
       <%= currentBlog.title %>
     </h3>
+    <span style="color: gray; font-size: 1rem; text-align: center;">
+      by <%= author.name %> - <%= new Date(author.createdAt).toDateString() %>
+    </span>
     <!-- img should come here -->
-    <p class="mt-5">
+    <p class="mt-4">
       <!-- <pre> -->
       <%= currentBlog.content %>
       <!-- </pre> -->
@@ -35,11 +39,15 @@
     <!-- show all comments -->
     <% if (locals.comments) { %>
     <% comments.forEach(function(commentObj) { %>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-3">
       <img style="width:50px; height: 50px; border-radius: 50%;" src="<%= commentObj.userId.profilePic %>" alt="userPic">
-      <p class="ms-2 my-auto">
-        <%= commentObj.comment %>
-      </p>
+      <div>
+        <p class="ms-2 my-auto">
+          <%= commentObj.comment %>
+        </p>
+        <p class="ms-2 my-auto" style="color: gray; font-size: 0.7rem;"><%= getTimeAgo(new Date(commentObj.createdAt)) %>
+        </p>
+      </div>
     </div>
     <% }); %>
     <% } %>

@@ -1,18 +1,35 @@
 const { verifyToken } = require("./token");
 
 // for each and every request that is incoming, below function will run
-const checkForAuthToken = () => {
+const checkAndVerifyToken = (req, res, next) => {
     return (req, res, next) => {
-        req.user = null;
-        if(!req.cookies["auth_token"]){
+        try {
+            req.user = null;
+            const token = req.cookies["auth_token"];
+            if(token){
+                req.user = verifyToken(token);
+            }
+            return next();
+        } catch (error) {
+            console.log("token error ", error);
             return next();
         }
-        const user = verifyToken(req.cookies["auth_token"]);
-        req.user = user;
-        return next();
+    }
+}
+
+const checkAuth = (req, res, next) => {
+    try {
+        if(req.user){
+            return next();
+        }
+        return res.redirect("/user/login");
+    } catch (error) {
+        console.log("login error ", error);
+        return res.redirect("/user/login");
     }
 }
 
 module.exports = {
-    checkForAuthToken
+    checkAndVerifyToken,
+    checkAuth
 }

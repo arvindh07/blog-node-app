@@ -22,9 +22,9 @@ const handleCreateBlog = async (req, res, next) => {
 const renderSingleBlog = async (req, res, next) => {
     const {id} = req.params;
     const currentBlog = await Blog.findById(id);
-    const author = await User.findById(req.user?.id);
+    const author = await User.findById(currentBlog?.createdBy);
     const comments = await Comment
-        .find({ blogId: id, userId: req.user.id })
+        .find({ blogId: id })
         .populate("userId")
         .sort({ createdAt: -1 });
     return res.render("Blog.ejs", {currentBlog, comments, user: req.user, author})
